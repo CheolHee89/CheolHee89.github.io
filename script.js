@@ -28,6 +28,41 @@ document.addEventListener('DOMContentLoaded', function() {
         darkModeIcon.textContent = newTheme === 'dark' ? '☀️' : '🌙';
     });
 
+    // Mobile Menu Toggle
+    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+    const navMenu = document.getElementById('navMenu');
+    
+    if (mobileMenuToggle && navMenu) {
+        mobileMenuToggle.addEventListener('click', function() {
+            mobileMenuToggle.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        const mobileNavLinks = navMenu.querySelectorAll('a');
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                if (window.innerWidth <= 768) {
+                    mobileMenuToggle.classList.remove('active');
+                    navMenu.classList.remove('active');
+                }
+            });
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            if (window.innerWidth <= 768) {
+                const isClickInsideNav = navMenu.contains(event.target);
+                const isClickOnToggle = mobileMenuToggle.contains(event.target);
+                
+                if (!isClickInsideNav && !isClickOnToggle && navMenu.classList.contains('active')) {
+                    mobileMenuToggle.classList.remove('active');
+                    navMenu.classList.remove('active');
+                }
+            }
+        });
+    }
+
     // Navigation links smooth scroll
     const navLinks = document.querySelectorAll('.nav-menu a[href^="#"]');
     
@@ -91,6 +126,12 @@ document.addEventListener('DOMContentLoaded', function() {
             navbar.style.boxShadow = '0 1px 2px 0 rgba(0, 0, 0, 0.05)';
         }
         
+        // Close mobile menu on scroll
+        if (window.innerWidth <= 768 && navMenu && navMenu.classList.contains('active')) {
+            if (mobileMenuToggle) mobileMenuToggle.classList.remove('active');
+            navMenu.classList.remove('active');
+        }
+        
         lastScroll = currentScroll;
     });
 
@@ -141,17 +182,16 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(section);
     });
 
-    // Mobile menu toggle (if needed in future)
-    // This is prepared for future mobile menu implementation
+    // Close mobile menu on window resize (when switching to desktop)
     function handleMobileMenu() {
-        // Add mobile menu functionality here if needed
-        const navMenu = document.querySelector('.nav-menu');
-        if (window.innerWidth <= 768) {
-            // Mobile menu logic can be added here
+        if (window.innerWidth > 768) {
+            if (mobileMenuToggle && navMenu) {
+                mobileMenuToggle.classList.remove('active');
+                navMenu.classList.remove('active');
+            }
         }
     }
     
     window.addEventListener('resize', handleMobileMenu);
-    handleMobileMenu();
 });
 
