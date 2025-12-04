@@ -19,6 +19,11 @@
                 <li><a href="#skills">기술</a></li>
                 <li><a href="#certifications">자격사항</a></li>
                 <li><a href="#projects">프로젝트</a></li>
+                <li>
+                    <button class="dark-mode-toggle" id="darkModeToggle" aria-label="다크 모드 토글">
+                        <span class="dark-mode-icon">🌙</span>
+                    </button>
+                </li>
             </ul>
         </div>
     </nav>
@@ -26,10 +31,11 @@
     <!-- Profile Section -->
     <section id="profile" class="section profile-section">
         <div class="container">
+            <h2 class="section-title">Profile</h2>
             <div class="profile-content">
                 <div class="profile-image">
                     <!-- 프로필 사진을 images/profile.jpg 또는 images/profile.png로 저장하고 경로를 수정하세요 -->
-                    <img src="images/profile.jpg" alt="Profile Picture" id="profile-img" onerror="this.src='https://via.placeholder.com/200'">
+                    <img src="images/profile.jpg" alt="Profile Picture" id="profile-img" loading="lazy" onerror="this.src='https://via.placeholder.com/200'">
                 </div>
                 <div class="profile-info">
                     <h1 class="profile-name">홍길동</h1>

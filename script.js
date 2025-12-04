@@ -1,5 +1,33 @@
 // Smooth scroll navigation
 document.addEventListener('DOMContentLoaded', function() {
+    // Dark Mode Toggle
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    const htmlElement = document.documentElement;
+    const darkModeIcon = document.querySelector('.dark-mode-icon');
+    
+    // Check for saved theme preference or default to light mode
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    htmlElement.setAttribute('data-theme', currentTheme);
+    
+    // Update icon based on current theme
+    if (currentTheme === 'dark') {
+        darkModeIcon.textContent = '☀️';
+    } else {
+        darkModeIcon.textContent = '🌙';
+    }
+    
+    // Dark mode toggle functionality
+    darkModeToggle.addEventListener('click', function() {
+        const currentTheme = htmlElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        
+        htmlElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        
+        // Update icon
+        darkModeIcon.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+    });
+
     // Navigation links smooth scroll
     const navLinks = document.querySelectorAll('.nav-menu a[href^="#"]');
     
